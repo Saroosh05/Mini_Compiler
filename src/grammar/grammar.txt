@@ -1,0 +1,4 @@
+# Canonical grammar files for this project:
+#
+# grammar_original.txt - original grammar for LR parser
+# grammar_ll1.txt      - transformed LL(1) grammar for RD and LL(1) parsers

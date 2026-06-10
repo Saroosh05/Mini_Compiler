@@ -1,0 +1,90 @@
+# Pascal subset - transformed LL(1) grammar
+# Use for recursive descent and LL(1) predictive parser.
+
+program -> PROGRAM ID ( identifier_list ) ; declarations subprogram_declarations compound_statement
+
+identifier_list -> ID identifier_list_rest
+identifier_list_rest -> , ID identifier_list_rest
+identifier_list_rest -> epsilon
+
+declarations -> declarations_body
+declarations_body -> VAR declaration_list
+declarations_body -> epsilon
+
+declaration_list -> identifier_list : type ; declaration_list
+declaration_list -> epsilon
+
+type -> standard_type
+type -> ARRAY [ num .. num ] OF standard_type
+
+standard_type -> integer
+standard_type -> real
+
+subprogram_declarations -> subprogram_declarations_body
+subprogram_declarations_body -> subprogram_declaration ; subprogram_declarations_body
+subprogram_declarations_body -> epsilon
+
+subprogram_declaration -> subprogram_head declarations compound_statement
+
+subprogram_head -> FUNCTION ID arguments : standard_type ;
+subprogram_head -> PROCEDURE ID arguments ;
+
+arguments -> ( parameter_list )
+arguments -> epsilon
+
+parameter_list -> identifier_list : type parameter_list_rest
+parameter_list_rest -> ; identifier_list : type parameter_list_rest
+parameter_list_rest -> epsilon
+
+compound_statement -> begin optional_statements end
+
+optional_statements -> statement_list
+optional_statements -> epsilon
+
+statement_list -> statement statement_list_rest
+statement_list_rest -> ; statement statement_list_rest
+statement_list_rest -> epsilon
+
+statement -> ID statement_suffix
+statement -> compound_statement
+statement -> IF expression THEN statement ELSE statement
+statement -> WHILE expression DO statement
+
+statement_suffix -> variable_suffix := expression
+statement_suffix -> procedure_suffix
+
+variable -> ID variable_suffix
+variable_suffix -> [ expression ]
+variable_suffix -> epsilon
+
+procedure_statement -> ID procedure_suffix
+procedure_suffix -> ( expression_list )
+procedure_suffix -> epsilon
+
+expression_list -> expression expression_list_rest
+expression_list_rest -> , expression expression_list_rest
+expression_list_rest -> epsilon
+
+expression -> simple_expression expression_tail
+expression_tail -> relop simple_expression
+expression_tail -> epsilon
+
+simple_expression -> term simple_expression_rest
+simple_expression -> sign term simple_expression_rest
+simple_expression_rest -> addop term simple_expression_rest
+simple_expression_rest -> epsilon
+
+term -> factor term_rest
+term_rest -> mulop factor term_rest
+term_rest -> epsilon
+
+factor -> ID factor_suffix
+factor -> num
+factor -> ( expression )
+factor -> NOT factor
+
+factor_suffix -> ( expression_list )
+factor_suffix -> epsilon
+
+sign -> +
+sign -> -
