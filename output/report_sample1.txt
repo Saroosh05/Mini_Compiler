@@ -1,0 +1,521 @@
+Pascal Subset Mini-Compiler - Compilation Report
+Generated: 2026-06-09 02:05:53
+Source: test/sample1.pas
+Verdict: SUCCESS
+Compile time: 192 ms
+
+=== Pipeline Summary ===
+Lexical Analysis | Passed | errors=0 | 27 tokens
+FIRST / FOLLOW | Passed | errors=0 | 69 non-terminals
+LL(1) Table | Passed | errors=0 | 140 entries
+Recursive Descent | Passed | errors=0 | ACCEPT
+LL(1) Parser | Passed | errors=0 | ACCEPT
+LR Parser | Passed | errors=0 | ACCEPT
+AST | Passed | errors=0 | 14 nodes
+Symbol Table | Passed | errors=0 | 3 symbols
+Semantic Analysis | Passed | errors=0 | No semantic errors
+
+=== Statistics ===
+Tokens: 27
+Productions: 63
+LL(1) entries: 140
+LL(1) conflicts: 0
+AST nodes: 14
+Symbols: 3
+Errors: 0
+
+
+====================
+  Lexical Analysis  
+====================
++----+------+-----+-----------+---------+-----------+---------+
+| #  | Line | Col | Kind      | Lexeme  | Attribute | Grammar |
++----+------+-----+-----------+---------+-----------+---------+
+| 1  | 1    | 1   | KEYWORD   | program | program   | PROGRAM |
+| 2  | 1    | 9   | ID        | sample1 | sample1   | ID      |
+| 3  | 1    | 17  | LPAREN    | (       | (         | (       |
+| 4  | 1    | 18  | ID        | input   | input     | ID      |
+| 5  | 1    | 23  | COMMA     | ,       | ,         | ,       |
+| 6  | 1    | 25  | ID        | output  | output    | ID      |
+| 7  | 1    | 31  | RPAREN    | )       | )         | )       |
+| 8  | 1    | 32  | SEMICOLON | ;       | ;         | ;       |
+| 9  | 2    | 1   | KEYWORD   | var     | var       | VAR     |
+| 10 | 2    | 5   | ID        | x       | x         | ID      |
+| 11 | 2    | 6   | COMMA     | ,       | ,         | ,       |
+| 12 | 2    | 8   | ID        | y       | y         | ID      |
+| 13 | 2    | 10  | COLON     | :       | :         | :       |
+| 14 | 2    | 12  | KEYWORD   | integer | integer   | integer |
+| 15 | 2    | 19  | SEMICOLON | ;       | ;         | ;       |
+| 16 | 3    | 1   | KEYWORD   | begin   | begin     | begin   |
+| 17 | 4    | 3   | ID        | x       | x         | ID      |
+| 18 | 4    | 5   | ASSIGN    | :=      | :=        | :=      |
+| 19 | 4    | 8   | NUM       | 1       | 1         | num     |
+| 20 | 4    | 9   | SEMICOLON | ;       | ;         | ;       |
+| 21 | 5    | 3   | ID        | y       | y         | ID      |
+| 22 | 5    | 5   | ASSIGN    | :=      | :=        | :=      |
+| 23 | 5    | 8   | ID        | x       | x         | ID      |
+| 24 | 5    | 10  | ADDOP     | +       | +         | addop   |
+| 25 | 5    | 12  | NUM       | 2       | 2         | num     |
+| 26 | 6    | 1   | KEYWORD   | end     | end       | end     |
+| 27 | 7    | 1   | EOF       | $       | $         | $       |
++----+------+-----+-----------+---------+-----------+---------+
+
+
+=== FIRST / FOLLOW ===
+
+=== FIRST and FOLLOW Sets ===
+
+arguments
+  FIRST  = { ( epsilon }
+  FOLLOW = { : ; }
+
+compound_statement
+  FIRST  = { begin }
+  FOLLOW = { $ ; ELSE end }
+
+declaration_list
+  FIRST  = { ID epsilon }
+  FOLLOW = { FUNCTION PROCEDURE begin }
+
+declarations
+  FIRST  = { VAR epsilon }
+  FOLLOW = { FUNCTION PROCEDURE begin }
+
+declarations_body
+  FIRST  = { VAR epsilon }
+  FOLLOW = { FUNCTION PROCEDURE begin }
+
+expression
+  FIRST  = { ( + - ID NOT num }
+  FOLLOW = { ) , ; DO ELSE THEN ] end }
+
+expression_list
+  FIRST  = { ( + - ID NOT num }
+  FOLLOW = { ) }
+
+expression_list_rest
+  FIRST  = { , epsilon }
+  FOLLOW = { ) }
+
+expression_tail
+  FIRST  = { epsilon relop }
+  FOLLOW = { ) , ; DO ELSE THEN ] end }
+
+factor
+  FIRST  = { ( ID NOT num }
+  FOLLOW = { ) , ; DO ELSE THEN ] addop end mulop relop }
+
+factor_suffix
+  FIRST  = { ( epsilon }
+  FOLLOW = { ) , ; DO ELSE THEN ] addop end mulop relop }
+
+identifier_list
+  FIRST  = { ID }
+  FOLLOW = { ) : }
+
+identifier_list_rest
+  FIRST  = { , epsilon }
+  FOLLOW = { ) : }
+
+optional_statements
+  FIRST  = { ID IF WHILE begin epsilon }
+  FOLLOW = { end }
+
+parameter_list
+  FIRST  = { ID }
+  FOLLOW = { ) }
+
+parameter_list_rest
+  FIRST  = { ; epsilon }
+  FOLLOW = { ) }
+
+procedure_statement
+  FIRST  = { ID }
+  FOLLOW = { }
+
+procedure_suffix
+  FIRST  = { ( epsilon }
+  FOLLOW = { ; ELSE end }
+
+program
+  FIRST  = { PROGRAM }
+  FOLLOW = { $ }
+
+sign
+  FIRST  = { + - }
+  FOLLOW = { ( ID NOT num }
+
+simple_expression
+  FIRST  = { ( + - ID NOT num }
+  FOLLOW = { ) , ; DO ELSE THEN ] end relop }
+
+simple_expression_rest
+  FIRST  = { addop epsilon }
+  FOLLOW = { ) , ; DO ELSE THEN ] end relop }
+
+standard_type
+  FIRST  = { integer real }
+  FOLLOW = { ) ; }
+
+statement
+  FIRST  = { ID IF WHILE begin }
+  FOLLOW = { ; ELSE end }
+
+statement_list
+  FIRST  = { ID IF WHILE begin }
+  FOLLOW = { end }
+
+statement_list_rest
+  FIRST  = { ; epsilon }
+  FOLLOW = { end }
+
+statement_suffix
+  FIRST  = { ( := [ epsilon }
+  FOLLOW = { ; ELSE end }
+
+subprogram_declaration
+  FIRST  = { FUNCTION PROCEDURE }
+  FOLLOW = { ; }
+
+subprogram_declarations
+  FIRST  = { FUNCTION PROCEDURE epsilon }
+  FOLLOW = { begin }
+
+subprogram_declarations_body
+  FIRST  = { FUNCTION PROCEDURE epsilon }
+  FOLLOW = { begin }
+
+subprogram_head
+  FIRST  = { FUNCTION PROCEDURE }
+  FOLLOW = { VAR begin }
+
+term
+  FIRST  = { ( ID NOT num }
+  FOLLOW = { ) , ; DO ELSE THEN ] addop end relop }
+
+term_rest
+  FIRST  = { epsilon mulop }
+  FOLLOW = { ) , ; DO ELSE THEN ] addop end relop }
+
+type
+  FIRST  = { ARRAY integer real }
+  FOLLOW = { ) ; }
+
+variable
+  FIRST  = { ID }
+  FOLLOW = { }
+
+variable_suffix
+  FIRST  = { [ epsilon }
+  FOLLOW = { := }
+
+
+=== LL(1) Table ===
+
+=== LL(1) Parsing Table ===
+
+Non-terminal                $             (             )             +             ,             -             ..            :             :=            ;             ARRAY         DO            ELSE          FUNCTION      ID            IF            NOT           OF            PROCEDURE     PROGRAM       THEN          VAR           WHILE         [             ]             addop         begin         end           integer       mulop         num           real          relop         
+arguments                                 P19                                                                                 P20                         P20                                                                                                                                                                                                                                                                                                                                             
+compound_statement                                                                                                                                                                                                                                                                                                                                                                                      P24                                                                                               
+declaration_list                                                                                                                                                                                                  P8            P7                                                      P8                                                                                                              P8                                                                                                
+declarations                                                                                                                                                                                                      P4                                                                    P4                                        P4                                                                    P4                                                                                                
+declarations_body                                                                                                                                                                                                 P6                                                                    P6                                        P5                                                                    P6                                                                                                
+expression                                P45                         P45                         P45                                                                                                                           P45                         P45                                                                                                                                                                                                 P45                                       
+expression_list                           P42                         P42                         P42                                                                                                                           P42                         P42                                                                                                                                                                                                 P42                                       
+expression_list_rest                                    P44                         P43                                                                                                                                                                                                                                                                                                                                                                                                                   
+expression_tail                                         P47                         P47                                                                   P47                         P47           P47                                                                                                             P47                                                     P47                                       P47                                                                   P46           
+factor                                    P57                                                                                                                                                                                   P55                         P58                                                                                                                                                                                                 P56                                       
+factor_suffix                             P59           P60                         P60                                                                   P60                         P60           P60                                                                                                             P60                                                     P60           P60                         P60                         P60                                       P60           
+identifier_list                                                                                                                                                                                                                 P1                                                                                                                                                                                                                                                                        
+identifier_list_rest                                    P3                          P2                                        P3                                                                                                                                                                                                                                                                                                                                                                          
+optional_statements                                                                                                                                                                                                             P25           P25                                                                                               P25                                                     P25           P26                                                                                 
+parameter_list                                                                                                                                                                                                                  P21                                                                                                                                                                                                                                                                       
+parameter_list_rest                                     P23                                                                                               P22                                                                                                                                                                                                                                                                                                                                             
+procedure_statement                                                                                                                                                                                                             P39                                                                                                                                                                                                                                                                       
+procedure_suffix                          P40                                                                                                             P41                                       P41                                                                                                                                                                                                               P41                                                                                 
+program                                                                                                                                                                                                                                                                                               P0                                                                                                                                                                                                  
+sign                                                                  P61                         P62                                                                                                                                                                                                                                                                                                                                                                                                     
+simple_expression                         P48                         P49                         P49                                                                                                                           P48                         P48                                                                                                                                                                                                 P48                                       
+simple_expression_rest                                  P51                         P51                                                                   P51                         P51           P51                                                                                                             P51                                                     P51           P50                         P51                                                                   P51           
+standard_type                                                                                                                                                                                                                                                                                                                                                                                                                       P11                                       P12                         
+statement                                                                                                                                                                                                                       P30           P32                                                                                               P33                                                     P31                                                                                               
+statement_list                                                                                                                                                                                                                  P27           P27                                                                                               P27                                                     P27                                                                                               
+statement_list_rest                                                                                                                                       P28                                                                                                                                                                                                                                                         P29                                                                                 
+statement_suffix                          P35                                                                                               P34           P35                                       P35                                                                                                                                                       P34                                                     P35                                                                                 
+subprogram_declaration                                                                                                                                                                                            P16                                                                   P16                                                                                                                                                                                                               
+subprogram_declarations                                                                                                                                                                                           P13                                                                   P13                                                                                                             P13                                                                                               
+subprogram_declarations_body                                                                                                                                                                                      P14                                                                   P14                                                                                                             P15                                                                                               
+subprogram_head                                                                                                                                                                                                   P17                                                                   P18                                                                                                                                                                                                               
+term                                      P52                                                                                                                                                                                   P52                         P52                                                                                                                                                                                                 P52                                       
+term_rest                                               P54                         P54                                                                   P54                         P54           P54                                                                                                             P54                                                     P54           P54                         P54                         P53                                       P54           
+type                                                                                                                                                                    P10                                                                                                                                                                                                                                                         P9                                        P9                          
+variable                                                                                                                                                                                                                        P36                                                                                                                                                                                                                                                                       
+variable_suffix                                                                                                                             P38                                                                                                                                                                                                               P37                                                                                                                                         
+
+No LL(1) conflicts detected.
+
+Productions:
+  P0: program -> PROGRAM ID ( identifier_list ) ; declarations subprogram_declarations compound_statement
+  P1: identifier_list -> ID identifier_list_rest
+  P2: identifier_list_rest -> , ID identifier_list_rest
+  P3: identifier_list_rest -> epsilon
+  P4: declarations -> declarations_body
+  P5: declarations_body -> VAR declaration_list
+  P6: declarations_body -> epsilon
+  P7: declaration_list -> identifier_list : type ; declaration_list
+  P8: declaration_list -> epsilon
+  P9: type -> standard_type
+  P10: type -> ARRAY [ num .. num ] OF standard_type
+  P11: standard_type -> integer
+  P12: standard_type -> real
+  P13: subprogram_declarations -> subprogram_declarations_body
+  P14: subprogram_declarations_body -> subprogram_declaration ; subprogram_declarations_body
+  P15: subprogram_declarations_body -> epsilon
+  P16: subprogram_declaration -> subprogram_head declarations compound_statement
+  P17: subprogram_head -> FUNCTION ID arguments : standard_type ;
+  P18: subprogram_head -> PROCEDURE ID arguments ;
+  P19: arguments -> ( parameter_list )
+  P20: arguments -> epsilon
+  P21: parameter_list -> identifier_list : type parameter_list_rest
+  P22: parameter_list_rest -> ; identifier_list : type parameter_list_rest
+  P23: parameter_list_rest -> epsilon
+  P24: compound_statement -> begin optional_statements end
+  P25: optional_statements -> statement_list
+  P26: optional_statements -> epsilon
+  P27: statement_list -> statement statement_list_rest
+  P28: statement_list_rest -> ; statement statement_list_rest
+  P29: statement_list_rest -> epsilon
+  P30: statement -> ID statement_suffix
+  P31: statement -> compound_statement
+  P32: statement -> IF expression THEN statement ELSE statement
+  P33: statement -> WHILE expression DO statement
+  P34: statement_suffix -> variable_suffix := expression
+  P35: statement_suffix -> procedure_suffix
+  P36: variable -> ID variable_suffix
+  P37: variable_suffix -> [ expression ]
+  P38: variable_suffix -> epsilon
+  P39: procedure_statement -> ID procedure_suffix
+  P40: procedure_suffix -> ( expression_list )
+  P41: procedure_suffix -> epsilon
+  P42: expression_list -> expression expression_list_rest
+  P43: expression_list_rest -> , expression expression_list_rest
+  P44: expression_list_rest -> epsilon
+  P45: expression -> simple_expression expression_tail
+  P46: expression_tail -> relop simple_expression
+  P47: expression_tail -> epsilon
+  P48: simple_expression -> term simple_expression_rest
+  P49: simple_expression -> sign term simple_expression_rest
+  P50: simple_expression_rest -> addop term simple_expression_rest
+  P51: simple_expression_rest -> epsilon
+  P52: term -> factor term_rest
+  P53: term_rest -> mulop factor term_rest
+  P54: term_rest -> epsilon
+  P55: factor -> ID factor_suffix
+  P56: factor -> num
+  P57: factor -> ( expression )
+  P58: factor -> NOT factor
+  P59: factor_suffix -> ( expression_list )
+  P60: factor_suffix -> epsilon
+  P61: sign -> +
+  P62: sign -> -
+
+=== Recursive Descent ===
+Recursive descent parse: ACCEPT
+Grammar productions available: 63
+
+=== LL(1) Trace ===
+Stack top: program, input: PROGRAM
+Expand P0: program -> ...
+Stack top: PROGRAM, input: PROGRAM
+Stack top: ID, input: ID
+Stack top: (, input: (
+Stack top: identifier_list, input: ID
+Expand P1: identifier_list -> ...
+Stack top: ID, input: ID
+Stack top: identifier_list_rest, input: ,
+Expand P2: identifier_list_rest -> ...
+Stack top: ,, input: ,
+Stack top: ID, input: ID
+Stack top: identifier_list_rest, input: )
+Expand P3: identifier_list_rest -> ...
+Stack top: ), input: )
+Stack top: ;, input: ;
+Stack top: declarations, input: VAR
+Expand P4: declarations -> ...
+Stack top: declarations_body, input: VAR
+Expand P5: declarations_body -> ...
+Stack top: VAR, input: VAR
+Stack top: declaration_list, input: ID
+Expand P7: declaration_list -> ...
+Stack top: identifier_list, input: ID
+Expand P1: identifier_list -> ...
+Stack top: ID, input: ID
+Stack top: identifier_list_rest, input: ,
+Expand P2: identifier_list_rest -> ...
+Stack top: ,, input: ,
+Stack top: ID, input: ID
+Stack top: identifier_list_rest, input: :
+Expand P3: identifier_list_rest -> ...
+Stack top: :, input: :
+Stack top: type, input: integer
+Expand P9: type -> ...
+Stack top: standard_type, input: integer
+Expand P11: standard_type -> ...
+Stack top: integer, input: integer
+Stack top: ;, input: ;
+Stack top: declaration_list, input: begin
+Expand P8: declaration_list -> ...
+Stack top: subprogram_declarations, input: begin
+Expand P13: subprogram_declarations -> ...
+Stack top: subprogram_declarations_body, input: begin
+Expand P15: subprogram_declarations_body -> ...
+Stack top: compound_statement, input: begin
+Expand P24: compound_statement -> ...
+Stack top: begin, input: begin
+Stack top: optional_statements, input: ID
+Expand P25: optional_statements -> ...
+Stack top: statement_list, input: ID
+Expand P27: statement_list -> ...
+Stack top: statement, input: ID
+Expand P30: statement -> ...
+Stack top: ID, input: ID
+Stack top: statement_suffix, input: :=
+Expand P34: statement_suffix -> ...
+Stack top: variable_suffix, input: :=
+Expand P38: variable_suffix -> ...
+Stack top: :=, input: :=
+Stack top: expression, input: num
+Expand P45: expression -> ...
+Stack top: simple_expression, input: num
+Expand P48: simple_expression -> ...
+Stack top: term, input: num
+Expand P52: term -> ...
+Stack top: factor, input: num
+Expand P56: factor -> ...
+Stack top: num, input: num
+Stack top: term_rest, input: ;
+Expand P54: term_rest -> ...
+Stack top: simple_expression_rest, input: ;
+Expand P51: simple_expression_rest -> ...
+Stack top: expression_tail, input: ;
+Expand P47: expression_tail -> ...
+Stack top: statement_list_rest, input: ;
+Expand P28: statement_list_rest -> ...
+Stack top: ;, input: ;
+Stack top: statement, input: ID
+Expand P30: statement -> ...
+Stack top: ID, input: ID
+Stack top: statement_suffix, input: :=
+Expand P34: statement_suffix -> ...
+Stack top: variable_suffix, input: :=
+Expand P38: variable_suffix -> ...
+Stack top: :=, input: :=
+Stack top: expression, input: ID
+Expand P45: expression -> ...
+Stack top: simple_expression, input: ID
+Expand P48: simple_expression -> ...
+Stack top: term, input: ID
+Expand P52: term -> ...
+Stack top: factor, input: ID
+Expand P55: factor -> ...
+Stack top: ID, input: ID
+Stack top: factor_suffix, input: +
+Expand P60: factor_suffix -> ...
+Stack top: term_rest, input: +
+Expand P54: term_rest -> ...
+Stack top: simple_expression_rest, input: +
+Expand P50: simple_expression_rest -> ...
+Stack top: addop, input: +
+Stack top: term, input: num
+Expand P52: term -> ...
+Stack top: factor, input: num
+Expand P56: factor -> ...
+Stack top: num, input: num
+Stack top: term_rest, input: end
+Expand P54: term_rest -> ...
+Stack top: simple_expression_rest, input: end
+Expand P51: simple_expression_rest -> ...
+Stack top: expression_tail, input: end
+Expand P47: expression_tail -> ...
+Stack top: statement_list_rest, input: end
+Expand P29: statement_list_rest -> ...
+Stack top: end, input: end
+Stack top: $, input: $
+
+=== LR Trace ===
+Step 1 state=0 sym=PROGRAM action=shift
+Step 2 state=1 sym=ID action=shift
+Step 3 state=3 sym=( action=shift
+Step 4 state=4 sym=ID action=shift
+Step 5 state=5 sym=, action=reduce
+Step 6 state=6 sym=, action=shift
+Step 7 state=8 sym=ID action=shift
+Step 8 state=10 sym=) action=reduce
+Step 9 state=6 sym=) action=shift
+Step 10 state=7 sym=; action=shift
+Step 11 state=9 sym=VAR action=shift
+Step 12 state=11 sym=ID action=shift
+Step 13 state=5 sym=, action=reduce
+Step 14 state=14 sym=, action=shift
+Step 15 state=8 sym=ID action=shift
+Step 16 state=10 sym=: action=reduce
+Step 17 state=14 sym=: action=shift
+Step 18 state=17 sym=integer action=shift
+Step 19 state=26 sym=; action=reduce
+Step 20 state=28 sym=; action=reduce
+Step 21 state=29 sym=; action=shift
+Step 22 state=45 sym=begin action=reduce
+Step 23 state=13 sym=begin action=reduce
+Step 24 state=12 sym=begin action=reduce
+Step 25 state=15 sym=begin action=shift
+Step 26 state=20 sym=ID action=shift
+Step 27 state=32 sym=:= action=reduce
+Step 28 state=40 sym=:= action=shift
+Step 29 state=65 sym=num action=shift
+Step 30 state=58 sym=; action=reduce
+Step 31 state=57 sym=; action=reduce
+Step 32 state=61 sym=; action=reduce
+Step 33 state=60 sym=; action=reduce
+Step 34 state=86 sym=; action=reduce
+Step 35 state=38 sym=; action=reduce
+Step 36 state=39 sym=; action=shift
+Step 37 state=64 sym=ID action=shift
+Step 38 state=32 sym=:= action=reduce
+Step 39 state=40 sym=:= action=shift
+Step 40 state=65 sym=ID action=shift
+Step 41 state=54 sym=+ action=reduce
+Step 42 state=57 sym=+ action=reduce
+Step 43 state=61 sym=+ action=reduce
+Step 44 state=60 sym=+ action=shift
+Step 45 state=81 sym=num action=shift
+Step 46 state=58 sym=end action=reduce
+Step 47 state=57 sym=end action=reduce
+Step 48 state=98 sym=end action=reduce
+Step 49 state=60 sym=end action=reduce
+Step 50 state=86 sym=end action=reduce
+Step 51 state=85 sym=end action=reduce
+Step 52 state=39 sym=end action=reduce
+Step 53 state=36 sym=end action=shift
+Step 54 state=63 sym=$ action=reduce
+Step 55 state=21 sym=$ action=reduce
+Step 56 state=2 sym=$ action=accept
+
+=== Abstract Syntax Tree ===
+Program(sample1; input, output)
+|-- VarDecl(x, y : integer)
+`-- Block
+    |-- :=
+    |   |-- x
+    |   `-- Number(1)
+    `-- :=
+        |-- y
+        `-- + : integer
+            |-- x
+            `-- Number(2)
+
+=== Symbol Table ===
+1 | sample1 | scope=0 | line=1 | type=program
+2 | x | scope=0 | line=2 | type=integer
+3 | y | scope=0 | line=2 | type=integer
+
+=== Errors and Warnings ===

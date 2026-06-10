@@ -1,0 +1,147 @@
+
+=== FIRST and FOLLOW Sets ===
+
+arguments
+  FIRST  = { ( epsilon }
+  FOLLOW = { : ; }
+
+compound_statement
+  FIRST  = { begin }
+  FOLLOW = { $ ; ELSE end }
+
+declaration_list
+  FIRST  = { ID epsilon }
+  FOLLOW = { FUNCTION PROCEDURE begin }
+
+declarations
+  FIRST  = { VAR epsilon }
+  FOLLOW = { FUNCTION PROCEDURE begin }
+
+declarations_body
+  FIRST  = { VAR epsilon }
+  FOLLOW = { FUNCTION PROCEDURE begin }
+
+expression
+  FIRST  = { ( + - ID NOT num }
+  FOLLOW = { ) , ; DO ELSE THEN ] end }
+
+expression_list
+  FIRST  = { ( + - ID NOT num }
+  FOLLOW = { ) }
+
+expression_list_rest
+  FIRST  = { , epsilon }
+  FOLLOW = { ) }
+
+expression_tail
+  FIRST  = { epsilon relop }
+  FOLLOW = { ) , ; DO ELSE THEN ] end }
+
+factor
+  FIRST  = { ( ID NOT num }
+  FOLLOW = { ) , ; DO ELSE THEN ] addop end mulop relop }
+
+factor_suffix
+  FIRST  = { ( epsilon }
+  FOLLOW = { ) , ; DO ELSE THEN ] addop end mulop relop }
+
+identifier_list
+  FIRST  = { ID }
+  FOLLOW = { ) : }
+
+identifier_list_rest
+  FIRST  = { , epsilon }
+  FOLLOW = { ) : }
+
+optional_statements
+  FIRST  = { ID IF WHILE begin epsilon }
+  FOLLOW = { end }
+
+parameter_list
+  FIRST  = { ID }
+  FOLLOW = { ) }
+
+parameter_list_rest
+  FIRST  = { ; epsilon }
+  FOLLOW = { ) }
+
+procedure_statement
+  FIRST  = { ID }
+  FOLLOW = { }
+
+procedure_suffix
+  FIRST  = { ( epsilon }
+  FOLLOW = { ; ELSE end }
+
+program
+  FIRST  = { PROGRAM }
+  FOLLOW = { $ }
+
+sign
+  FIRST  = { + - }
+  FOLLOW = { ( ID NOT num }
+
+simple_expression
+  FIRST  = { ( + - ID NOT num }
+  FOLLOW = { ) , ; DO ELSE THEN ] end relop }
+
+simple_expression_rest
+  FIRST  = { addop epsilon }
+  FOLLOW = { ) , ; DO ELSE THEN ] end relop }
+
+standard_type
+  FIRST  = { integer real }
+  FOLLOW = { ) ; }
+
+statement
+  FIRST  = { ID IF WHILE begin }
+  FOLLOW = { ; ELSE end }
+
+statement_list
+  FIRST  = { ID IF WHILE begin }
+  FOLLOW = { end }
+
+statement_list_rest
+  FIRST  = { ; epsilon }
+  FOLLOW = { end }
+
+statement_suffix
+  FIRST  = { ( := [ epsilon }
+  FOLLOW = { ; ELSE end }
+
+subprogram_declaration
+  FIRST  = { FUNCTION PROCEDURE }
+  FOLLOW = { ; }
+
+subprogram_declarations
+  FIRST  = { FUNCTION PROCEDURE epsilon }
+  FOLLOW = { begin }
+
+subprogram_declarations_body
+  FIRST  = { FUNCTION PROCEDURE epsilon }
+  FOLLOW = { begin }
+
+subprogram_head
+  FIRST  = { FUNCTION PROCEDURE }
+  FOLLOW = { VAR begin }
+
+term
+  FIRST  = { ( ID NOT num }
+  FOLLOW = { ) , ; DO ELSE THEN ] addop end relop }
+
+term_rest
+  FIRST  = { epsilon mulop }
+  FOLLOW = { ) , ; DO ELSE THEN ] addop end relop }
+
+type
+  FIRST  = { ARRAY integer real }
+  FOLLOW = { ) ; }
+
+variable
+  FIRST  = { ID }
+  FOLLOW = { }
+
+variable_suffix
+  FIRST  = { [ epsilon }
+  FOLLOW = { := }
+

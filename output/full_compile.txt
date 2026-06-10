@@ -1,0 +1,71 @@
+
+====================
+  Lexical Analysis  
+====================
++----+------+-----+-----------+---------+-----------+---------+
+| #  | Line | Col | Kind      | Lexeme  | Attribute | Grammar |
++----+------+-----+-----------+---------+-----------+---------+
+| 1  | 1    | 1   | KEYWORD   | program | program   | PROGRAM |
+| 2  | 1    | 9   | ID        | sample1 | sample1   | ID      |
+| 3  | 1    | 17  | LPAREN    | (       | (         | (       |
+| 4  | 1    | 18  | ID        | input   | input     | ID      |
+| 5  | 1    | 23  | COMMA     | ,       | ,         | ,       |
+| 6  | 1    | 25  | ID        | output  | output    | ID      |
+| 7  | 1    | 31  | RPAREN    | )       | )         | )       |
+| 8  | 1    | 32  | SEMICOLON | ;       | ;         | ;       |
+| 9  | 2    | 1   | KEYWORD   | var     | var       | VAR     |
+| 10 | 2    | 5   | ID        | x       | x         | ID      |
+| 11 | 2    | 6   | COMMA     | ,       | ,         | ,       |
+| 12 | 2    | 8   | ID        | y       | y         | ID      |
+| 13 | 2    | 10  | COLON     | :       | :         | :       |
+| 14 | 2    | 12  | KEYWORD   | integer | integer   | integer |
+| 15 | 2    | 19  | SEMICOLON | ;       | ;         | ;       |
+| 16 | 3    | 1   | KEYWORD   | begin   | begin     | begin   |
+| 17 | 4    | 3   | ID        | x       | x         | ID      |
+| 18 | 4    | 5   | ASSIGN    | :=      | :=        | :=      |
+| 19 | 4    | 8   | NUM       | 1       | 1         | num     |
+| 20 | 4    | 9   | SEMICOLON | ;       | ;         | ;       |
+| 21 | 5    | 3   | ID        | y       | y         | ID      |
+| 22 | 5    | 5   | ASSIGN    | :=      | :=        | :=      |
+| 23 | 5    | 8   | ID        | x       | x         | ID      |
+| 24 | 5    | 10  | ADDOP     | +       | +         | addop   |
+| 25 | 5    | 12  | NUM       | 2       | 2         | num     |
+| 26 | 6    | 1   | KEYWORD   | end     | end       | end     |
+| 27 | 7    | 1   | EOF       | $       | $         | $       |
++----+------+-----+-----------+---------+-----------+---------+
+
+Total tokens: 27
+[2mFIRST/FOLLOW -> output/first_follow.txt
+LL(1) table  -> output/ll1_table.txt[0m
+RD parse: ACCEPT
+
+[1;36m=== Abstract Syntax Tree ===[0m
+Program(sample1; input, output)
+|-- VarDecl(x, y : integer)
+`-- Block
+    |-- :=
+    |   |-- x
+    |   `-- Number(1)
+    `-- :=
+        |-- y
+        `-- +
+            |-- x
+            `-- Number(2)
+LL(1) parse: ACCEPT
+LR parse: ACCEPT
+
+=== Symbol Table ===
+ID    | Name         | Kind       | Type     | Scope  | Line 
+------------------------------------------------------------
+1     | sample1      | program    | program  | 0      | 1    
+2     | x            | variable   | integer  | 0      | 2    
+3     | y            | variable   | integer  | 0      | 2    
+
+[1;36m=== Compilation Summary ===[0m
+  Lexical  errors  :  [2m0[0m
+  Syntax   errors  :  [2m0[0m
+  Semantic errors  :  [2m0[0m
+  Warnings         :  [2m0[0m
+[2m  ------------------------------[0m
+  Total            :  [1;32m0 - clean[0m
+

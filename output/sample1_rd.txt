@@ -1,0 +1,23 @@
+RD parse: ACCEPT
+
+[1;36m=== Abstract Syntax Tree ===[0m
+Program(sample1; input, output)
+|-- VarDecl(x, y : integer)
+`-- Block
+    |-- :=
+    |   |-- x
+    |   `-- Number(1)
+    `-- :=
+        |-- y
+        `-- +
+            |-- x
+            `-- Number(2)
+
+[1;36m=== Compilation Summary ===[0m
+  Lexical  errors  :  [2m0[0m
+  Syntax   errors  :  [2m0[0m
+  Semantic errors  :  [2m0[0m
+  Warnings         :  [2m0[0m
+[2m  ------------------------------[0m
+  Total            :  [1;32m0 - clean[0m
+
